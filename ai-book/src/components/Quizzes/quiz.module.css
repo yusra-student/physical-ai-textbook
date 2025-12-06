@@ -1,0 +1,94 @@
+.quizContainer {
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    background-color: var(--docusaurus-highlighted-code-line-bg);
+    box-shadow: var(--doc-sidebar-shadow);
+  }
+  
+  .scoreSection {
+    font-size: 1.5em;
+    text-align: center;
+    color: var(--ifm-color-primary);
+  }
+  
+  .questionSection {
+    margin-bottom: 20px;
+  }
+  
+  .questionCount {
+    font-size: 0.9em;
+    color: var(--ifm-font-color-secondary);
+    margin-bottom: 10px;
+  }
+  
+  .questionText {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--ifm-font-color-base);
+  }
+  
+  .answerSection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .answerSection button {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--ifm-toc-border-color);
+    border-radius: 5px;
+    background-color: var(--ifm-background-color);
+    color: var(--ifm-font-color-base);
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+  
+  .answerSection button:hover {
+    background-color: var(--ifm-hover-background-color);
+    border-color: var(--ifm-color-primary);
+  }
+  
+  .answerSection button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(var(--ifm-color-primary-rgb), 0.3);
+  }
+  
+  .answerSection button.correct {
+    background-color: var(--ifm-color-success-dark);
+    color: white;
+    border-color: var(--ifm-color-success-dark);
+  }
+  
+  .answerSection button.incorrect {
+    background-color: var(--ifm-color-danger-dark);
+    color: white;
+    border-color: var(--ifm-color-danger-dark);
+  }
+  
+  /* Dark mode adjustments */
+  html[data-theme='dark'] .quizContainer {
+    background-color: var(--ifm-background-color);
+  }
+  
+  html[data-theme='dark'] .answerSection button {
+    background-color: var(--ifm-background-surface-color);
+    color: var(--ifm-font-color-base);
+    border-color: var(--ifm-toc-border-color);
+  }
+  
+  html[data-theme='dark'] .answerSection button:hover {
+    background-color: var(--ifm-hover-background-color);
+    border-color: var(--ifm-color-primary);
+  }
+  
+  html[data-theme='dark'] .answerSection button.correct {
+    background-color: var(--ifm-color-success);
+  }
+  
+  html[data-theme='dark'] .answerSection button.incorrect {
+    background-color: var(--ifm-color-danger);
+  }
