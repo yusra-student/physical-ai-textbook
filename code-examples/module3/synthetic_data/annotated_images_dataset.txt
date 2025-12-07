@@ -1,5 +1,0 @@
-# Placeholder for 5000 Annotated Images Dataset
-
-This file represents the generated dataset of 5000 annotated images, which would be produced by executing the `domain_randomization.py` script within NVIDIA Isaac Sim.
-
-**Note**: Actual dataset generation requires running the simulation environment.
