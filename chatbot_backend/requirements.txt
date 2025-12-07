@@ -1,0 +1,13 @@
+Flask
+Flask-CORS
+qdrant-client
+cohere
+python-dotenv
+markdown-it-py
+openai>=1.0.0
+beautifulsoup4
+langchain-community
+unstructured
+markdown
+fastembed
+
