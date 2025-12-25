@@ -28,12 +28,12 @@ const ChatbotWidget = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/chat', { // Flask backend URL
+      const response = await fetch('http://localhost:8000/ask', { // FastAPI backend URL
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: inputMessage }),
+        body: JSON.stringify({ query: inputMessage }),
       });
 
       if (!response.ok) {
@@ -41,7 +41,7 @@ const ChatbotWidget = () => {
       }
 
       const data = await response.json();
-      const botMessage = { text: data.response, sender: 'bot' };
+      const botMessage = { text: data.answer, sender: 'bot' };
       setMessages((prevMessages) => [...prevMessages, botMessage]);
     } catch (error) {
       console.error("Error sending message to backend:", error);

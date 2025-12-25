@@ -1,0 +1,100 @@
+---
+sidebar_position: 4
+---
+
+# 03 - Quizzes and Summary
+
+This section provides practice materials to reinforce your understanding of the concepts and implementations covered in Module 5.
+
+## Module Summary
+
+In Module 5, "Advanced Intelligent Systems," we delved into the comprehensive integration of three pivotal components:
+
+-   **Retrieval-Augmented Generation (RAG)**: We built a knowledge-aware "brain" for our humanoid system, enabling it to query and understand vast amounts of documentation. This involved setting up a Qdrant vector database, implementing document extraction, chunking, embedding generation, and crafting LLM-powered response generation with citations.
+-   **Authentication and Authorization (Auth)**: We established a robust security layer with Role-Based Access Control (RBAC), user authentication models, API key management, and basic security hardening measures. This ensures that interactions with the intelligent system are secure and controlled.
+-   **Intelligent Task Engine**: We designed and implemented a flexible task orchestration framework capable of defining, scheduling, composing, and executing complex, multi-step tasks. Key aspects included state management, conditional logic, and mechanisms for resilience (retries, fallbacks) and monitoring (telemetry).
+
+By integrating these components, we've laid the groundwork for a humanoid robot that can not only understand its world through rich documentation but also act upon that understanding in a secure and intelligent manner. The "Decision-Action Loop" powered by RAG, Auth, and the Task Engine represents a significant step towards truly autonomous and context-aware robotic systems.
+
+## Quizzes
+
+Test your knowledge with these quizzes.
+
+### Quiz 5.1: RAG System Fundamentals
+
+1.  What is the primary purpose of a vector database like Qdrant in a RAG system?
+    *   A) To store raw text documents
+    *   B) To perform keyword searches
+    *   C) To store numerical representations (embeddings) of text for semantic search
+    *   D) To generate LLM responses
+
+2.  Which component is responsible for breaking down large documents into smaller, manageable pieces?
+    *   A) Embedder
+    *   B) Chunker
+    *   C) Generator
+    *   D) Searcher
+
+3.  What does the `Embedder` component primarily do?
+    *   A) Extracts text from documents
+    *   B) Converts text into numerical vectors
+    *   C) Generates human-like responses
+    *   D) Filters search results
+
+### Quiz 5.2: Authentication and Task Security
+
+1.  In our RBAC system, what does a `Permission` represent?
+    *   A) A user's role
+    *   B) An action that can be performed
+    *   C) A specific user
+    *   D) A group of users
+
+2.  Why is API key hashing important for security?
+    *   A) To make API keys shorter
+    *   B) To allow keys to be easily reversed
+    *   C) To prevent storing plain-text keys, protecting them from exposure
+    *   D) To increase the speed of key validation
+
+3.  What is the main benefit of implementing rate limiting in an API?
+    *   A) To speed up API responses
+    *   B) To prevent brute-force attacks and resource exhaustion
+    *   C) To encrypt API traffic
+    *   D) To bypass authentication
+
+### Quiz 5.3: Task Engine Orchestration
+
+1.  Which Redis-based library is used for asynchronous task queuing and execution?
+    *   A) Celery
+    *   B) RQ (Redis Queue)
+    *   C) Apache Kafka
+    *   D) RabbitMQ
+
+2.  What is the purpose of `on_success` and `on_failure` attributes in a task step definition?
+    *   A) To log success/failure messages
+    *   B) To trigger external webhooks
+    *   C) To define the next step in the workflow based on the current step's outcome
+    *   D) To calculate retry attempts
+
+3.  What does the `TelemetryRecorder` primarily capture?
+    *   A) User login attempts
+    *   B) Task execution events and metrics
+    *   C) Document ingestion progress
+    *   D) LLM response quality
+
+---
+
+### Answer Key
+
+**Quiz 5.1:**
+1. C
+2. B
+3. B
+
+**Quiz 5.2:**
+1. B
+2. C
+3. B
+
+**Quiz 5.3:**
+1. B
+2. C
+3. B

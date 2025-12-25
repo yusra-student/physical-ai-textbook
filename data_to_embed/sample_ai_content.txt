@@ -1,0 +1,35 @@
+# Introduction to Artificial Intelligence
+
+Artificial Intelligence (AI) is a branch of computer science that aims to create software or machines that exhibit human-like intelligence. This can include learning from examples and experience, understanding natural language, solving problems, and recognizing patterns.
+
+## Machine Learning
+
+Machine learning is a subset of AI that focuses on algorithms that can learn and improve from experience. Instead of being programmed with specific rules, machine learning systems use statistical techniques to improve their performance on tasks with experience.
+
+## Deep Learning
+
+Deep learning is a specialized form of machine learning that uses artificial neural networks with multiple layers. These deep neural networks can process complex patterns in large amounts of data.
+
+# Natural Language Processing
+
+Natural Language Processing (NLP) is a field of AI focused on enabling computers to understand, interpret, and generate human language. Important applications include language translation, sentiment analysis, and chatbots.
+
+## Tokenization
+
+Tokenization is the process of breaking text into smaller units called tokens, typically words, phrases, or symbols. This is often the first step in NLP pipelines.
+
+## Embeddings
+
+Embeddings are numerical representations of text that capture semantic meaning. Word embeddings represent words as vectors in a high-dimensional space, where similar words are closer together.
+
+# Vector Databases
+
+Vector databases store and index high-dimensional vectors for efficient similarity search. They enable fast retrieval of similar items in applications like recommendation systems and semantic search.
+
+## Qdrant
+
+Qdrant is a vector database that provides fast and accurate similarity search. It supports various distance metrics and offers advanced filtering capabilities.
+
+## Similarity Search
+
+Similarity search is the process of finding items in a dataset that are similar to a query item. In vector databases, this is typically performed using distance metrics like cosine similarity or Euclidean distance.

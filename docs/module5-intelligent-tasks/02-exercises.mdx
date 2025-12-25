@@ -1,0 +1,124 @@
+---
+sidebar_position: 3
+---
+
+# 02 - Hands-on Exercises
+
+These exercises will guide you through practical application of the concepts learned in Module 5, building up your intelligent systems integration skills.
+
+## Beginner Exercises: Exploring the RAG Brain
+
+### Exercise 5.1: Document Ingestion and Basic Query
+
+**Goal**: Ingest a new document into your RAG system and perform a simple semantic search.
+
+1.  **Create a New Markdown File**:
+    *   Navigate to your `docs/` directory.
+    *   Create a new file, e.g., `docs/new-document.mdx`, with some content about a robot component (e.g., "The 'RoboArm MkII' features 7 degrees of freedom and a maximum payload of 5kg.").
+2.  **Run the Ingestion Pipeline**:
+    *   If you have a CLI tool or script for ingestion, run it to process your new document. (e.g., `python ingest.py`).
+    *   *Self-correction*: If you haven't built an ingestion script yet, manually run the `DocExtractor`, `Chunker`, `Embedder`, and `QdrantLoader` components from `src/ai_book/rag/ingestion/` in a Python script to process `docs/` content.
+3.  **Query the RAG System**:
+    *   Using `code-examples/module5/rag_tasks.py` (specifically `run_rag_query_example()`), modify the `question` variable to ask about the content of your new document (e.g., "What is the payload capacity of RoboArm MkII?").
+    *   Run the script and observe the answer and citations.
+
+### Exercise 5.2: Filtered Search
+
+**Goal**: Use metadata filtering to refine your RAG search results.
+
+1.  **Add Metadata to a Document**:
+    *   Open `docs/module5-intelligent-tasks/intro.mdx` (or another MDX file).
+    *   Add YAML frontmatter to it, e.g., `--- module: module5 type: introduction ---`
+2.  **Re-ingest the Document**:
+    *   Process the document again using your ingestion pipeline so the new metadata is picked up by Qdrant.
+3.  **Perform a Filtered Query**:
+    *   Modify `run_rag_query_example()` to include a `metadata_filter` in the `rag_client.query_rag` call:
+        ```python
+        answer, citations, contexts = await rag_client.query_rag(
+            "What is this module about?", 
+            metadata_filter={"module": "module5"}
+        )
+        ```
+    *   Compare the results with and without the filter. What difference do you observe?
+
+## Intermediate Exercises: Securing the Operations
+
+### Exercise 5.3: User Roles and Permissions
+
+**Goal**: Simulate different user roles and verify permission checks using the RBAC system.
+
+1.  **Define a New Permission**:
+    *   In `src/ai_book/auth/models.py`, add a new `Permission` (e.g., `Permission.CALIBRATE_SENSOR`).
+2.  **Assign Permission to a Role**:
+    *   In `src/ai_book/auth/rbac.py`, update the `ROLE_PERMISSIONS` dictionary to grant `CALIBRATE_SENSOR` to the `OPERATOR` role.
+3.  **Test Permission Check**:
+    *   Write a new test in `tests/auth/test_flows.py` to:
+        *   Create a `User` with the `OPERATOR` role.
+        *   Instantiate `RBAC`.
+        *   Assert that the operator `has_permission` for `CALIBRATE_SENSOR`.
+        *   Assert that a `VIEWER` user does NOT have this permission.
+
+### Exercise 5.4: API Key Authentication Flow
+
+**Goal**: Implement and test a simple API key authentication flow.
+
+1.  **Generate an API Key**:
+    *   In a script, use `APIKey.generate_key_value()` and `APIKey.hash_key()` to simulate generating and storing a new API key for a `User`.
+2.  **Simulate API Key Validation**:
+    *   Write a function that takes a plain API key string.
+    *   In this function, retrieve a stored `APIKey` object (e.g., the one you generated).
+    *   Use `api_key_object.verify_key(provided_key_string)` to check validity.
+    *   Test with both correct and incorrect keys.
+
+## Advanced Exercises: Task Engine Orchestration
+
+### Exercise 5.5: Custom Step Type Implementation
+
+**Goal**: Create a new custom step type for the Task Engine.
+
+1.  **Define a New Step Type**:
+    *   Decide on a new step type, e.g., `log_data` that simply logs a message or a variable from the context.
+2.  **Create an Executor Function**:
+    *   In `src/ai_book/tasks/engine/` (or a new `src/ai_book/tasks/executors.py`), create an `async` function `log_data_executor(step_definition, context)`.
+    *   This function should retrieve a `message` parameter from `step_definition["parameters"]` and log it, rendering any Jinja2 templates using the `context`.
+3.  **Register the Executor**:
+    *   Modify `code-examples/module5/rag_tasks.py` (or a new example script) to register your new executor with the `TaskComposer`: `composer.register_step_executor("log_data", log_data_executor)`.
+4.  **Create a Task Definition**:
+    *   Define a new task YAML in `src/ai_book/tasks/library/standard_tasks.yaml` that uses your new `log_data` step type.
+    *   Include a `parameters` section in your task definition for the message.
+5.  **Execute the Task**:
+    *   Run your example script to execute this new task via the `TaskComposer` and observe the logs.
+
+### Exercise 5.6: Building a Multi-Step RAG-Powered Task
+
+**Goal**: Design and execute a complex task that uses `ask_rag` to gather information, makes a decision, and then performs a simulated action.
+
+1.  **Task Scenario**: The robot needs to decide if it should "clean" or "recharge" based on its current "battery_level" and "dirt_sensor_reading".
+2.  **Define Task Parameters**:
+    *   Create a new task in `src/ai_book/tasks/library/standard_tasks.yaml`.
+    *   It should accept `battery_level` (int) and `dirt_sensor_reading` (float) as parameters.
+3.  **Add `ask_rag` Step**:
+    *   Include an `ask_rag` step that asks: "Given a battery level of {{ parameters.battery_level }}% and a dirt sensor reading of {{ parameters.dirt_sensor_reading }}, should the robot prioritize cleaning or recharging? Explain why."
+    *   Store the answer in `rag_decision`.
+4.  **Add Conditional Step**:
+    *   Add a conditional `command` step (or your custom `log_data` step from Ex 5.5) that checks if `rag_decision.answer` contains "clean" or "recharge".
+    *   One branch should simulate "initiating cleaning protocol", the other "initiating recharge protocol".
+5.  **Execute and Test**:
+    *   Execute this task with different `battery_level` and `dirt_sensor_reading` values.
+    *   Observe how the RAG answer influences the subsequent conditional steps.
+
+## Challenge Exercise: Integrate with Docusaurus Frontend
+
+**Goal**: Implement a basic UI component in Docusaurus that can submit a simple task to your FastAPI backend and display its status.
+
+1.  **Create a React Component**:
+    *   In `ai-book/src/components/`, create a new React component (e.g., `TaskSubmitter.js`).
+    *   This component should have an input field for a task ID/name and a button.
+2.  **FastAPI Endpoint**:
+    *   Ensure your FastAPI backend (specifically `src/ai_book/api/routes/tasks.py`) is running and accessible.
+3.  **Frontend Interaction**:
+    *   When the button is clicked, send a `POST` request to `/api/tasks/submit` with a dummy task definition.
+    *   Optionally, poll `/api/tasks/{task_id}` to display the task's status on the frontend.
+4.  **Embed in Docusaurus**:
+    *   Embed your new React component into an MDX page in `docs/module5-intelligent-tasks/`.
+    *   Verify that you can submit tasks from your Docusaurus site.

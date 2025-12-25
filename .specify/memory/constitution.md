@@ -1,55 +1,68 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Integrated RAG Chatbot for Published Book Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### Content Fidelity
+All responses must be grounded in and limited to the user-selected text from the book.
+**Rationale**: Ensures the chatbot only responds to content that is explicitly selected by the user from the book, maintaining accuracy and trustworthiness.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### Performance and Scalability
+System must handle concurrent users with minimal latency using scalable cloud infrastructure.
+**Rationale**: Using Neon Serverless Postgres and Qdrant Cloud Free Tier to ensure scalability as user demand grows.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### Data Integrity and Security
+Protect user queries and maintain privacy while securely storing interactions.
+**Rationale**: Safeguarding user data and ensuring all interactions are handled securely according to privacy regulations.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### User-Centric Design
+Intuitive interface that enhances the reading experience without complexity.
+**Rationale**: Providing a seamless experience for users interacting with the book content, lowering barriers to engagement.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### Technology Stack Compliance
+Must utilize Cohere API, FastAPI, Neon Serverless Postgres, and Qdrant Cloud.
+**Rationale**: Ensuring the architecture aligns with the specified technology stack for optimal integration and performance.
 
-### [PRINCIPLE_6_NAME]
+### Accurate Response Generation
+Responses must accurately reflect the meaning and context of the selected book text.
+**Rationale**: Ensuring the chatbot generates accurate and faithful responses based on the provided text, maintaining the integrity of the original content.
 
+## Key Standards
 
-[PRINCIPLE__DESCRIPTION]
+- API responses must be JSON-formatted with consistent structure
+- Query processing time must not exceed 3 seconds for 95% of requests
+- Vector search precision must maintain 90% relevance accuracy
+- All components must be containerized for portability
+- Database connection pooling for efficient resource utilization
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Constraints and Requirements
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+- Must support book text chunks up to 10,000 tokens
+- Deployable on Neon Serverless Postgres and Qdrant Cloud Free Tier
+- Compatible with Cohere API
+- Single-page application for client interface
+- Maximum 500MB total application size
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Success Criteria
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+- Successful retrieval and response generation from book content
+- Zero data leakage between different book queries
+- 99% uptime during peak usage hours
+- Successful deployment without exceeding free tier limits
+- Intuitive user experience validated through testing
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+All development must verify compliance with core principles. Complexity must be justified with clear benefits. Use README and documentation for runtime development guidance. Regular review of performance against defined standards.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+Amendment Procedure:
+1. Create an issue detailing the proposed changes
+2. Discuss with stakeholders for consensus
+3. Submit PR with the updated constitution
+4. Require approval from maintainers
+
+Versioning Policy:
+- Major: Fundamental changes to project scope or architecture
+- Minor: Addition of significant new capabilities
+- Patch: Corrections, clarifications, or minor enhancements
+
+**Version**: 1.0.0 | **Ratified**: 2025-01-17 | **Last Amended**: 2025-01-17
